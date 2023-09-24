@@ -38,14 +38,6 @@ int main()
         printf("\n");
     }
 
-    printf("Generating triplet representation...\n");
-    for (int i = 0; i <= count; i++)
-    {
-        for (int j = 0; j < 3; j++)
-            printf("%d \t", mat_3[i][j]);
-        printf("\n");
-    }
-
     printf("Generating transpose of triplet representation...\n");
     trans_3[0][0] = mat_3[0][1];
     trans_3[0][1] = mat_3[0][0];
