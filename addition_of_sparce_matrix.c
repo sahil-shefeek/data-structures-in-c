@@ -133,6 +133,6 @@ int main()
     res[0][2] = k;
 
     printf("The sum is :\n");
-    print_triplet(res, k + 1);
+    print_triplet(res, k);
     return 0;
 }
