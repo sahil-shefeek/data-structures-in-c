@@ -31,19 +31,10 @@ int main()
     int mat_a[100][3], mat_b[100][3];
     int row_a, col_a, count_a, row_b, col_b, count_b;
     printf("Input the first matrix :\n");
-    // printf("Enter the number of rows :\n");
-    // scanf("%d", &row_a);
-    // printf("Enter the number of cols :\n");
-    // scanf("%d", &col_a);
     printf("Enter the number of non-zero elements :\n");
     scanf("%d", &count_a);
     printf("Enter matrix elements :\n");
     scan_triplet(mat_a, count_a);
-    // for (int i = 1; i <= count_a; i++)
-    // {
-    //     for (int j = 0; j < 3; j++)
-    //         scanf("%d", &mat_a[i][j]);
-    // }
 
     row_a = mat_a[0][0];
     col_a = mat_a[0][1];
@@ -54,10 +45,7 @@ int main()
     printf("Input the second matrix :\n");
     printf("Enter the number of non-zero elements :\n");
     scanf("%d", &count_b);
-    // printf("Enter the number of rows :\n");
-    // scanf("%d", &row_b);
-    // printf("Enter the number of cols :\n");
-    // scanf("%d", &col_b);
+
     printf("Enter matrix elements :\n");
     scan_triplet(mat_b, count_b);
 
@@ -69,12 +57,6 @@ int main()
         printf("Matrix addition not possible.\n");
         return 0;
     }
-
-    // for (int i = 1; i <= count_b; i++)
-    // {
-    //     for (int j = 0; j < 3; j++)
-    //         scanf("%d", &mat_b[i][j]);
-    // }
 
     printf("You have entered :\n");
     print_triplet(mat_b, count_b);
