@@ -175,9 +175,9 @@ int main()
     }
 
     while (top > -1)
-    {
         append(postfix, 100, &pfix_top, pop());
-    }
+
+    append(postfix, 100, &pfix_top, '\0');
 
     printf("Postfix representation: ");
     print_arr(postfix, pfix_top + 1);
