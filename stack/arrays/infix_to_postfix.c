@@ -143,21 +143,16 @@ int main()
         switch (type_of(symbol))
         {
         case braces:
-            if (is_left_brace(symbol))
+            if (symbol == '(')
             {
                 push(symbol);
                 break;
             }
             else
             {
-                while (1)
-                {
-                    char del = pop();
-                    if (del == '(')
-                        break;
-                    else
-                        append(postfix, 100, &pfix_top, del);
-                }
+                char del;
+                while ((del = pop()) != '(')
+                    append(postfix, 100, &pfix_top, del);
             }
             break;
 
