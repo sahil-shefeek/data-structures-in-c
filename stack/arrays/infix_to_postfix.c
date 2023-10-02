@@ -25,7 +25,7 @@ void push(char obj)
     if (top > SIZE)
     {
         printf("ERR: Stack overflow!\n");
-        exit(0);
+        exit(-1);
     }
     top++;
     stack[top] = obj;
@@ -36,7 +36,7 @@ char pop()
     if (top < 0)
     {
         printf("ERR: Stack underflow!\n");
-        exit(0);
+        exit(-1);
     }
     top--;
     return stack[top + 1];
@@ -51,7 +51,7 @@ void append(char *arr, int size, char element)
         return;
     }
     printf("ERR: Array index out of bounds!\n");
-    exit(0);
+    exit(-1);
 }
 
 int type_of(char symbol)
