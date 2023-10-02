@@ -2,7 +2,11 @@
 #include <stdlib.h>
 #define SIZE 100
 
+// a b c * d e ^ / + f g - +
+
 int top = -1;
+int top_of_arr = -1;
+
 enum type
 {
     braces = 1, operator, operand };
@@ -38,12 +42,12 @@ char pop()
     return stack[top + 1];
 }
 
-void append(char *arr, int size, int *top, char element)
+void append(char *arr, int size, char element)
 {
-    if ((*top) < size)
+    if (top_of_arr < size)
     {
-        (*top)++;
-        arr[*top] = element;
+        top_of_arr++;
+        arr[top_of_arr] = element;
         return;
     }
     printf("ERR: Array index out of bounds!\n");
@@ -131,7 +135,6 @@ int main()
 {
     char infix[100];
     char postfix[100];
-    int pfix_top = -1;
 
     printf("Enter infix statement :\n");
     fgets(infix, 99, stdin);
@@ -152,29 +155,29 @@ int main()
             {
                 char del;
                 while ((del = pop()) != '(')
-                    append(postfix, 100, &pfix_top, del);
+                    append(postfix, 100, del);
             }
             break;
 
         case operator:
             while (top > -1 && highest_precedence(stack, SIZE) >= precedence(symbol))
-                append(postfix, 100, &pfix_top, pop());
+                append(postfix, 100, pop());
             push(symbol);
             break;
 
         case operand:
-            append(postfix, 100, &pfix_top, symbol);
+            append(postfix, 100, symbol);
             break;
         }
         i++;
     }
 
     while (top > -1)
-        append(postfix, 100, &pfix_top, pop());
+        append(postfix, 100, pop());
 
-    append(postfix, 100, &pfix_top, '\0');
+    append(postfix, 100, '\0');
 
     printf("Postfix representation: ");
-    print_arr(postfix, pfix_top + 1);
+    print_arr(postfix, top_of_arr + 1);
     return 0;
 }
