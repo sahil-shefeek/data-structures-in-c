@@ -5,16 +5,11 @@
 #define MAX 100
 #define SIZE 100
 
-#define add(A, B) \
-    A + B;
-#define subtract(A, B) \
-    A - B;
-#define multiply(A, B) \
-    A *B;
-#define divide(A, B) \
-    A / B;
-#define raise(A, B) \
-    pow(A, B);
+#define ADD(A, B) A + B;
+#define SUBTRACT(A, B) A - B;
+#define MULTIPLY(A, B) A *B;
+#define DIVIDE(A, B) A / B;
+#define RAISE(A, B) pow(A, B);
 
 char stack[MAX];
 int top = -1;
@@ -67,19 +62,19 @@ int evaluate(char symbol, int operand_1, int operand_2)
     switch (symbol)
     {
     case '+':
-        return add(operand_1, operand_2);
+        return ADD(operand_1, operand_2);
 
     case '-':
-        return subtract(operand_1, operand_2);
+        return SUBTRACT(operand_1, operand_2);
 
     case '*':
-        return multiply(operand_1, operand_2);
+        return MULTIPLY(operand_1, operand_2);
 
     case '/':
-        return divide(operand_1, operand_2);
+        return DIVIDE(operand_1, operand_2);
 
     case '^':
-        return raise(operand_1, operand_2);
+        return RAISE(operand_1, operand_2);
 
     default:
         printf("Invalid operator error!\n");
