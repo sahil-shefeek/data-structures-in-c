@@ -22,7 +22,7 @@ char stack[SIZE];
 
 void push(char obj)
 {
-    if (top > SIZE)
+    if (top >= SIZE - 1)
     {
         printf("ERR: Stack overflow!\n");
         exit(-1);

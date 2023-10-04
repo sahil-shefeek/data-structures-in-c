@@ -2,19 +2,23 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define MAX 100
+#define MAX_SIZE 100
 #define SIZE 100
 
-char stack[MAX];
+int stack[MAX_SIZE];
 int top = -1;
 
 enum type
 {
-    braces = 1, operator, operand };
+    braces = 1,
+    operator,
+    operand,
+    whitespace
+};
 
-void push(char obj)
+void push(int obj)
 {
-    if (top > MAX)
+    if (top >= MAX_SIZE - 1)
     {
         printf("ERR: Stack overflow!\n");
         exit(-1);
@@ -23,15 +27,16 @@ void push(char obj)
     stack[top] = obj;
 }
 
-char pop()
+int pop()
 {
     if (top < 0)
     {
         printf("ERR: Stack underflow!\n");
         exit(-1);
     }
+    int del = stack[top];
     top--;
-    return stack[top + 1];
+    return del;
 }
 
 int type_of(char symbol)
@@ -45,7 +50,9 @@ int type_of(char symbol)
     case '%':
     case '^':
         return operator;
-
+    case ' ':
+    case '\n':
+        return whitespace;
     default:
         return operand;
     }
@@ -76,13 +83,25 @@ int evaluate(char symbol, int operand_1, int operand_2)
     }
 }
 
+int int_of(char num)
+{
+    if (num >= '0' && num <= '9')
+        return num - '0';
+
+    else
+    {
+        printf("Character '%c' is not a digit.\n", num);
+        exit(-1);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     char postfix[SIZE];
-    int result;
 
     printf("Enter postfix representation :");
     fgets(postfix, 99, stdin);
+    printf("You have entered: %s\n", postfix);
 
     int i = 0;
     char symbol;
@@ -95,12 +114,13 @@ int main(int argc, char *argv[])
             break;
 
         case operand:
-            push(symbol);
+            push(int_of(symbol));
             break;
         }
         i++;
     }
 
-    printf("The evaluvation of the postfix expression %s is: %d\n", postfix, pop());
+    printf("The evaluvation of the postfix expression is: %d\n", pop());
+
     return 0;
 }
