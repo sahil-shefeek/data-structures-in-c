@@ -42,26 +42,34 @@ void list()
 int main(int argc, char *argv[])
 {
     int choice, element;
-get_choice:
-    printf("Select operation:\n1. Push\n2. Pop\n");
-    scanf("%d", &choice);
-    switch (choice)
+    while (1)
     {
-    case 1:
-        printf("Enter element to push:\n");
-        scanf("%d", &element);
-        push(element);
-        list();
-        break;
+    get_choice:
+        printf("Select operation:\n1. Push\n2. Pop\n3. List\n4. Exit\n");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            printf("Enter element to push:\n");
+            scanf("%d", &element);
+            push(element);
+            break;
 
-    case 2:
-        pop();
-        list();
-        break;
+        case 2:
+            pop();
+            break;
 
-    default:
-        printf("Invalid operation!\n");
-        goto get_choice;
+        case 3:
+            list();
+            break;
+
+        case 4:
+            return 0;
+
+        default:
+            printf("Invalid operation!\n");
+            goto get_choice;
+        }
     }
     return 0;
 }
