@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define SIZE 100
 
 int top = -1;
@@ -7,7 +8,11 @@ int top_of_arr = -1;
 
 enum type
 {
-    braces = 1, operator, operand };
+    braces = 1,
+    operator,
+    operand,
+    whitespace
+};
 
 enum levels
 {
@@ -15,6 +20,20 @@ enum levels
     two,
     three
 };
+
+void reverse(char *str, int len)
+{
+    int i = 0, temp;
+    len = strlen(str);
+
+    while (i < len / 2)
+    {
+        temp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = temp;
+        i++;
+    }
+}
 
 char stack[SIZE];
 
@@ -56,6 +75,8 @@ int type_of(char symbol)
 {
     switch (symbol)
     {
+    case '\n':
+        return whitespace;
     case '(':
     case ')':
         return braces;
@@ -102,19 +123,20 @@ void print_arr(char *arr, int size)
 int main()
 {
     char infix[100];
-    char postfix[100];
+    char prefix[100];
 
     printf("Enter infix statement :\n");
     fgets(infix, 99, stdin);
+    reverse(infix, strlen(infix));
     int i = 0;
 
-    while (infix[i] != '\0' && infix[i] != '\n')
+    while (infix[i] != '\0')
     {
         char symbol = infix[i];
         switch (type_of(symbol))
         {
         case braces:
-            if (symbol == '(')
+            if (symbol == ')')
             {
                 push(symbol);
                 break;
@@ -122,30 +144,30 @@ int main()
             else
             {
                 char del;
-                while ((del = pop()) != '(')
-                    append(postfix, 100, del);
+                while ((del = pop()) != ')')
+                    append(prefix, 100, del);
             }
             break;
 
         case operator:
-            while (top > -1 && precedence(stack[top]) >= precedence(symbol))
-                append(postfix, 100, pop());
+            while (top > -1 && precedence(stack[top]) > precedence(symbol))
+                append(prefix, 100, pop());
             push(symbol);
             break;
 
         case operand:
-            append(postfix, 100, symbol);
+            append(prefix, 100, symbol);
             break;
         }
         i++;
     }
 
     while (top > -1)
-        append(postfix, 100, pop());
+        append(prefix, 100, pop());
+    reverse(prefix, top_of_arr);
+    append(prefix, 100, '\0');
 
-    append(postfix, 100, '\0');
-
-    printf("Postfix representation: ");
-    print_arr(postfix, top_of_arr + 1);
+    printf("Prefix representation: ");
+    print_arr(prefix, top_of_arr + 2);
     return 0;
 }
