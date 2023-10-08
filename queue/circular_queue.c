@@ -16,7 +16,7 @@ void enqueue(Queue *q1, int item)
     {
         if (q1->front == -1)
             q1->front = 0;
-        q1->rear = q1->rear + 1;
+        q1->rear++;
         q1->queue[q1->rear] = item;
     }
 }
@@ -46,7 +46,7 @@ void list(Queue *q1)
         return;
     }
     printf("Queue elements are :\n");
-    for (int i = q1->front; i <= q1->rear && q1->front != -1; i++)
+    for (int i = q1->front; i <= q1->rear; i++)
         printf("%d \t", q1->queue[i]);
     printf("\n");
 }
