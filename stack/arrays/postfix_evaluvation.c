@@ -58,6 +58,21 @@ int type_of(char symbol)
     }
 }
 
+int raise(int base, int exponent)
+{
+    int result = 1;
+    while (exponent > 0)
+    {
+        if (exponent % 2 == 1)
+        {
+            result *= base;
+        }
+        base *= base;
+        exponent /= 2;
+    }
+    return result;
+}
+
 int evaluate(char symbol, int operand_1, int operand_2)
 {
     switch (symbol)
@@ -75,7 +90,7 @@ int evaluate(char symbol, int operand_1, int operand_2)
         return operand_2 / operand_1;
 
     case '^':
-        return pow(operand_2, operand_1);
+        return raise(operand_2, operand_1);
 
     default:
         printf("Invalid operator error!\n");
