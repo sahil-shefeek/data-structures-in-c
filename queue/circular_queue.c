@@ -34,7 +34,8 @@ void dequeue(Queue *q1)
             q1->front = -1;
             q1->rear = -1;
         }
-        q1->front = (q1->front + 1) % MAX_SIZE;
+        else
+            q1->front = (q1->front + 1) % MAX_SIZE;
         printf("Deleted %d\n", del);
     }
 }
@@ -46,12 +47,12 @@ void list(Queue *q1)
         printf("Queue is empty!\n");
         return;
     }
-    printf("Front = %d\n", q1->front);
+    printf("Front ==> %d\n", q1->front);
     printf("Queue elements are :\n");
     for (int i = q1->front; i != q1->rear; i = (i + 1) % MAX_SIZE)
         printf("%d \t", q1->queue[i]);
     printf("\n");
-    printf("Rear = %d\n", q1->rear);
+    printf("Rear ==>  %d\n", q1->rear);
 }
 
 int main(int argc, char *argv[])
