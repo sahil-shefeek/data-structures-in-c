@@ -18,6 +18,7 @@ void enqueue(Queue *q1, int item)
             q1->front = 0;
         q1->rear = (q1->rear + 1) % MAX_SIZE;
         q1->queue[q1->rear] = item;
+        printf("Added %d\n", item);
     }
 }
 

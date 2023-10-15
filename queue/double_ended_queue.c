@@ -11,7 +11,7 @@ typedef struct
 void enqueue_front(Queue *q, int item)
 {
     if (q->front == (q->rear + 1) % MAX_SIZE)
-        printf("Queue is full!\n");
+        printf("Queue is full!\n\n");
     else
     {
         if (q->front == -1)
@@ -29,20 +29,21 @@ void enqueue_front(Queue *q, int item)
 void enqueue_rear(Queue *q, int item)
 {
     if (q->front == (q->rear + 1) % MAX_SIZE)
-        printf("Queue is full!\n");
+        printf("Queue is full!\n\n");
     else
     {
         if (q->front == -1)
             q->front = 0;
         q->rear = (q->rear + 1) % MAX_SIZE;
         q->queue[q->rear] = item;
+        printf("Added %d\n", item);
     }
 }
 
 void dequeue_front(Queue *q)
 {
     if (q->front == -1)
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
     else
     {
         int del = q->queue[q->front];
@@ -61,7 +62,7 @@ void dequeue_front(Queue *q)
 void dequeue_rear(Queue *q)
 {
     if (q->front == -1)
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
     else
     {
         int del = q->queue[q->rear];
@@ -73,7 +74,7 @@ void dequeue_rear(Queue *q)
         }
         else
             q->rear = (q->rear + MAX_SIZE - 1) % MAX_SIZE;
-        printf("Deleted %d\n", del);
+        printf("Deleted %d\n\n", del);
     }
 }
 
@@ -81,7 +82,7 @@ void list(Queue *q)
 {
     if (q->front == -1)
     {
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
         return;
     }
     printf("Front ==>  %d\n", q->front);
