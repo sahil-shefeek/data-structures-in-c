@@ -11,7 +11,7 @@ typedef struct
 void enqueue(Queue *q1, int item)
 {
     if (q1->front == (q1->rear + 1) % MAX_SIZE)
-        printf("Queue is full!\n");
+        printf("Queue is full!\n\n");
     else
     {
         if (q1->front == -1)
@@ -24,7 +24,7 @@ void enqueue(Queue *q1, int item)
 void dequeue(Queue *q1)
 {
     if (q1->front == -1)
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
     else
     {
         int del = q1->queue[q1->front];
@@ -44,15 +44,19 @@ void list(Queue *q1)
 {
     if (q1->front == -1)
     {
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
         return;
     }
     printf("Front ==> %d\n", q1->front);
     printf("Queue elements are :\n");
-    for (int i = q1->front; i != q1->rear; i = (i + 1) % MAX_SIZE)
+    int i = q1->front;
+    do
+    {
         printf("%d \t", q1->queue[i]);
+        i = (i + 1) % MAX_SIZE;
+    } while (i != (q1->rear + 1) % MAX_SIZE);
     printf("\n");
-    printf("Rear ==>  %d\n", q1->rear);
+    printf("Rear ==>  %d\n\n", q1->rear);
 }
 
 int main(int argc, char *argv[])
@@ -65,7 +69,9 @@ int main(int argc, char *argv[])
     while (1)
     {
     get_choice:
-        printf("Select operation:\n1. Enqueue\n2. Dequeue\n3. List\n4. Exit\n");
+        printf("Select operation:\n"
+               "1. Enqueue\n2. Dequeue\n"
+               "3. List\n4. Exit\n");
         scanf("%d", &choice);
         switch (choice)
         {
