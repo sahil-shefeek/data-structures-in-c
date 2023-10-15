@@ -100,7 +100,7 @@ int main()
     int i = 0, j = 0, k = 0;
     while (i < poly_1.num_of_terms && j < poly_2.num_of_terms)
     {
-        if (poly_1.terms[i].exp == poly_2.terms[i].exp)
+        if (poly_1.terms[i].exp == poly_2.terms[j].exp)
         {
             res.terms[k] = poly_1.terms[i++];
             res.terms[k++].coeff += poly_2.terms[j++].coeff;
