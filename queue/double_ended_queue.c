@@ -88,13 +88,11 @@ void list(Queue *q)
     printf("Front ==>  %d\n", q->front);
     printf("Queue elements are :\n");
     int i = q->front;
-    while (1)
+    do
     {
         printf("%d \t", q->queue[i]);
-        if (i == q->rear)
-            break;
         i = (i + 1) % MAX_SIZE;
-    }
+    } while (i != (q->rear + 1) % MAX_SIZE);
     printf("\n");
     printf("Rear ==>  %d\n", q->rear);
 }
