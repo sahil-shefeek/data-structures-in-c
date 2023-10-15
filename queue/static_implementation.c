@@ -12,7 +12,7 @@ void enqueue(Queue *q1, int element)
 {
     if (q1->rear == MAX_SIZE - 1)
     {
-        printf("Queue is full!\n");
+        printf("Queue is full!\n\n");
         return;
     }
     else
@@ -28,7 +28,7 @@ void dequeue(Queue *q1)
 {
     if (q1->front == -1)
     {
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
         return;
     }
     else
@@ -49,13 +49,13 @@ void list(Queue *q1)
 {
     if (q1->front == -1)
     {
-        printf("Queue is empty!\n");
+        printf("Queue is empty!\n\n");
         return;
     }
     printf("Queue elements are :\n");
-    for (int i = 0; i <= q1->rear; i++)
+    for (int i = q1->front; i <= q1->rear; i++)
         printf("%d \t", q1->queue[i]);
-    printf("\n");
+    printf("\n\n");
 }
 
 int main(int argc, char *argv[])
@@ -68,7 +68,9 @@ int main(int argc, char *argv[])
     while (1)
     {
     get_choice:
-        printf("Select operation:\n1. Enqueue\n2. Dequeue\n3. List\n4. Exit\n");
+        printf("Select operation:\n"
+               "1. Enqueue\n2. Dequeue\n"
+               "3. List\n4. Exit\n");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -90,7 +92,7 @@ int main(int argc, char *argv[])
             return 0;
 
         default:
-            printf("Invalid operation!\nTry again.\n");
+            printf("Invalid operation!\nTry again.\n\n");
             goto get_choice;
         }
     }
