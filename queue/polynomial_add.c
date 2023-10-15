@@ -102,7 +102,7 @@ int main()
     {
         if (poly_1.terms[i].exp == poly_2.terms[i].exp)
         {
-            res.terms[k] = poly_1.terms[i];
+            res.terms[k] = poly_1.terms[i++];
             res.terms[k++].coeff += poly_2.terms[j++].coeff;
         }
         else if (poly_1.terms[i].exp > poly_2.terms[j].exp)
