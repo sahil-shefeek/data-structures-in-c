@@ -97,49 +97,27 @@ int main()
     sort_terms(&poly_2);
     print_polynomial(&poly_2);
 
-    int i = 0, j = 0, k = -1;
+    int i = 0, j = 0, k = 0;
     while (i < poly_1.num_of_terms && j < poly_2.num_of_terms)
     {
         if (poly_1.terms[i].exp == poly_2.terms[i].exp)
         {
-            k++;
-            res.terms[k].coeff = poly_1.terms[i].coeff + poly_2.terms[j].coeff;
-            res.terms[k].exp = poly_1.terms[i].exp;
-            i++, j++;
+            res.terms[k] = poly_1.terms[i];
+            res.terms[k++].coeff += poly_2.terms[j++].coeff;
         }
         else if (poly_1.terms[i].exp > poly_2.terms[j].exp)
-        {
-            k++;
-            res.terms[k].coeff = poly_1.terms[i].coeff;
-            res.terms[k].exp = poly_1.terms[i].exp;
-            i++;
-        }
+            res.terms[k++] = poly_1.terms[i++];
         else
-        {
-            k++;
-            res.terms[k].coeff = poly_2.terms[j].coeff;
-            res.terms[k].exp = poly_2.terms[j].exp;
-            j++;
-        }
+            res.terms[k++] = poly_2.terms[j++];
     }
 
     while (i < poly_1.num_of_terms)
-    {
-        k++;
-        res.terms[k].coeff = poly_1.terms[i].coeff;
-        res.terms[k].exp = poly_1.terms[i].exp;
-        i++;
-    }
+        res.terms[k++] = poly_1.terms[i++];
 
     while (j < poly_2.num_of_terms)
-    {
-        k++;
-        res.terms[k].coeff = poly_2.terms[j].coeff;
-        res.terms[k].exp = poly_1.terms[j].exp;
-        j++;
-    }
+        res.terms[k++] = poly_2.terms[j++];
 
-    res.num_of_terms = k + 1;
+    res.num_of_terms = k;
 
     printf("The sum is :\n");
     sort_terms(&res);
