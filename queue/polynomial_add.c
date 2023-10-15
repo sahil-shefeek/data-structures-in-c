@@ -25,20 +25,6 @@ void get_polynomial(Polynomial *poly)
     }
 }
 
-// void print_polynomial(Polynomial poly)
-// {
-//     for (int i = 0; i < poly.num_of_terms; i++)
-//     {
-//         int exp = poly.terms[i].exp;
-//         if (exp == 0)
-//             printf("%d\n", poly.terms[i].coeff);
-//         else if (exp == 1)
-//             printf("%dx + ", poly.terms[i].coeff);
-//         else
-//             printf("%dx^%d + ", poly.terms[i].coeff, poly.terms[i].exp);
-//     }
-// }
-
 void print_polynomial(Polynomial *poly)
 {
     if (poly->num_of_terms == 0)
@@ -92,20 +78,6 @@ void sort_terms(Polynomial *poly)
     } while (swapped);
 }
 
-// Term get_term(int num)
-// {
-//     Term term;
-//     for (int i = 0; i < num; i++)
-//     {
-//         printf("Enter the exponent of term:  ");
-//         scanf("%d", &term.exp);
-//         printf("Enter the coefficient of term:  ");
-//         scanf("%d", &term.coeff);
-//         printf("\n");
-//     }
-//     return term;
-// }
-
 int main()
 {
     Polynomial poly_1, poly_2, res;
@@ -135,76 +107,42 @@ int main()
             res.terms[k].exp = poly_1.terms[i].exp;
             i++, j++;
         }
-        // else if (mat_a[i][0] == mat_b[j][0])
-        // {
-        //     if (mat_a[i][1] < mat_b[j][1])
-        //     {
-        //         k++;
-        //         sparce_add(res, mat_a, k, i);
-        //         i++;
-        //     }
-        //     else
-        //     {
-        //         k++;
-        //         sparce_add(res, mat_b, k, j);
-        //         j++;
-        //     }
-        // }
-        else if (poly_1.terms[i].exp > poly_2.terms[i].exp)
+        else if (poly_1.terms[i].exp > poly_2.terms[j].exp)
         {
             k++;
-            res.terms[k].coeff += poly_1.terms[i].coeff;
+            res.terms[k].coeff = poly_1.terms[i].coeff;
             res.terms[k].exp = poly_1.terms[i].exp;
             i++;
         }
         else
         {
             k++;
-            res.terms[k].coeff += poly_2.terms[j].coeff;
+            res.terms[k].coeff = poly_2.terms[j].coeff;
             res.terms[k].exp = poly_2.terms[j].exp;
             j++;
         }
     }
 
-    while (i <= poly_1.num_of_terms)
+    while (i < poly_1.num_of_terms)
     {
         k++;
-        res.terms[k].coeff += poly_1.terms[i].coeff;
+        res.terms[k].coeff = poly_1.terms[i].coeff;
         res.terms[k].exp = poly_1.terms[i].exp;
         i++;
     }
 
-    while (j <= poly_2.num_of_terms)
+    while (j < poly_2.num_of_terms)
     {
         k++;
-        res.terms[k].coeff += poly_2.terms[j].coeff;
+        res.terms[k].coeff = poly_2.terms[j].coeff;
         res.terms[k].exp = poly_1.terms[j].exp;
         j++;
     }
 
-    res.num_of_terms = k;
+    res.num_of_terms = k + 1;
 
     printf("The sum is :\n");
+    sort_terms(&res);
     print_polynomial(&res);
     return 0;
-
-    // for (int i = 0; i < num; i++)
-    // {
-    //     printf("Enter the exponent of term %d:  ", i + 1);
-    //     scanf("%d", &terms[i].exp);
-    //     printf("Enter the coefficient of term %d:  ", i + 1);
-    //     scanf("%d", &terms[i].coeff);
-    //     printf("\n");
-    // }
-
-    // for (int i = 0; i < num; i++)
-    // {
-    //     int exp = terms[i].exp;
-    //     if (exp == 0)
-    //         printf("%d\n", terms[i].coeff);
-    //     else if (exp == 1)
-    //         printf("%dx + ", terms[i].coeff);
-    //     else
-    //         printf("%dx^%d + ", terms[i].coeff, exp);
-    // }
 }
