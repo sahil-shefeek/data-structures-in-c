@@ -7,7 +7,11 @@ int top_of_arr = -1;
 
 enum type
 {
-    braces = 1, operator, operand };
+    braces = 1,
+    operator,
+    operand,
+    exponential
+};
 
 enum levels
 {
@@ -65,8 +69,9 @@ int type_of(char symbol)
     case '*':
     case '/':
     case '%':
-    case '^':
         return operator;
+    case '^':
+        return exponential;
 
     default:
         return operand;
@@ -129,6 +134,12 @@ int main()
 
         case operator:
             while (top > -1 && precedence(stack[top]) >= precedence(symbol))
+                append(postfix, 100, pop());
+            push(symbol);
+            break;
+
+        case exponential:
+            while (precedence(stack[top]) > precedence(symbol))
                 append(postfix, 100, pop());
             push(symbol);
             break;
