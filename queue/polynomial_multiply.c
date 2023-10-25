@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define SIZE 10
+#define SIZE 20
 
 typedef struct Term
 {
@@ -58,24 +58,17 @@ void print_polynomial(Polynomial *poly)
     printf("\n");
 }
 
-void sort_terms(Polynomial *poly)
+void simplfy_terms(Polynomial *poly)
 {
-    int swapped;
-    Term temp;
-    do
-    {
-        swapped = 0;
-        for (int i = 0; i < poly->num_of_terms - 1; i++)
-        {
-            if (poly->terms[i].exp < poly->terms[i + 1].exp)
-            {
-                temp = poly->terms[i];
-                poly->terms[i] = poly->terms[i + 1];
-                poly->terms[i + 1] = temp;
-                swapped = 1;
-            }
-        }
-    } while (swapped);
+    // Todo
+}
+
+Term multiply(Term term1, Term term2)
+{
+    Term res;
+    res.coeff = term1.coeff * term2.coeff;
+    res.exp = term1.exp + term2.exp;
+    return res;
 }
 
 int main()
@@ -83,42 +76,29 @@ int main()
     Polynomial poly_1, poly_2, res;
     printf("Enter the degree of first polynomial: ");
     scanf("%d", &poly_1.num_of_terms);
+    poly_1.num_of_terms++;
     get_polynomial(&poly_1);
     printf("You have entered: \n");
-    sort_terms(&poly_1);
     print_polynomial(&poly_1);
 
     printf("Enter the degree of second polynomial: ");
     scanf("%d", &poly_2.num_of_terms);
+    poly_2.num_of_terms++;
     get_polynomial(&poly_2);
     printf("You have entered: \n");
-    sort_terms(&poly_2);
     print_polynomial(&poly_2);
 
-    int i = 0, j = 0, k = 0;
-    while (i < poly_1.num_of_terms && j < poly_2.num_of_terms)
-    {
-        if (poly_1.terms[i].exp == poly_2.terms[j].exp)
-        {
-            res.terms[k] = poly_1.terms[i++];
-            res.terms[k++].coeff += poly_2.terms[j++].coeff;
-        }
-        else if (poly_1.terms[i].exp > poly_2.terms[j].exp)
-            res.terms[k++] = poly_1.terms[i++];
-        else
-            res.terms[k++] = poly_2.terms[j++];
-    }
-
+    int i = 0, k = 0;
     while (i < poly_1.num_of_terms)
-        res.terms[k++] = poly_1.terms[i++];
+    {
+        int j = 0;
+        while (j < poly_2.num_of_terms)
+            res.terms[k++] = multiply(poly_1.terms[i], poly_2.terms[j++]);
+        i++;
+    }
+    res.num_of_terms = k++;
 
-    while (j < poly_2.num_of_terms)
-        res.terms[k++] = poly_2.terms[j++];
-
-    res.num_of_terms = k;
-
-    printf("The sum is :\n");
-    sort_terms(&res);
+    printf("The product is :\n");
     print_polynomial(&res);
     return 0;
 }
