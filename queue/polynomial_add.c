@@ -83,6 +83,7 @@ int main()
     Polynomial poly_1, poly_2, res;
     printf("Enter the degree of first polynomial: ");
     scanf("%d", &poly_1.num_of_terms);
+    poly_1.num_of_terms++;
     get_polynomial(&poly_1);
     printf("You have entered: \n");
     sort_terms(&poly_1);
@@ -90,6 +91,7 @@ int main()
 
     printf("Enter the degree of second polynomial: ");
     scanf("%d", &poly_2.num_of_terms);
+    poly_2.num_of_terms++;
     get_polynomial(&poly_2);
     printf("You have entered: \n");
     sort_terms(&poly_2);
