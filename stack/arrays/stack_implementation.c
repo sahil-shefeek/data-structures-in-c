@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
-#define MAX_SIZE 100
+#define MAX_SIZE 5
 
 int top = -1;
 int stack[MAX_SIZE];
@@ -9,34 +8,34 @@ void push(char obj)
 {
     if (top >= MAX_SIZE - 1)
     {
-        printf("ERR: Stack overflow!\n");
-        exit(-1);
+        printf("ERR: Stack overflow!\n\n");
+        return;
     }
     top++;
     stack[top] = obj;
-    printf("Succesfully pushed %d.\n", obj);
+    printf("Succesfully pushed %d.\n\n", obj);
 }
 
 void pop()
 {
     if (top < 0)
     {
-        printf("ERR: Stack underflow!\n");
-        exit(-1);
+        printf("ERR: Stack underflow!\n\n");
+        return;
     }
     top--;
-    printf("Succesfully popped %d.\n", stack[top + 1]);
+    printf("Succesfully popped %d.\n\n", stack[top + 1]);
 }
 
 void list()
 {
     if (top == -1)
     {
-        printf("Stack is empty!\n");
+        printf("Stack is empty!\n\n");
         return;
     }
     printf("Elements in the stack are:\n");
-    for (int i = 0; i < top; i++)
+    for (int i = 0; i <= top; i++)
         printf("%d\n", stack[i]);
 }
 

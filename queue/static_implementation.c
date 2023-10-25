@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAX_SIZE 100
+#define MAX_SIZE 5
 
 typedef struct
 {
