@@ -11,7 +11,7 @@ A collection of pre-tested data structure programs for KTU university students.
 
 Navigating through a repository can be challenging, but my repository is designed with meticulous organization to make navigation easy and intuitive.
 
-The file structure of CCpy is structured according to a clear navigational hierarchy. Below is an overview of this hierarchy, arranged from the highest to the lowest level of importance:
+The file structure of data-structures-in-c is structured according to a clear navigational hierarchy. Below is an overview of this hierarchy, arranged from the highest to the lowest level of importance:
 
 | Precedence Level |               Data Structure               |
 | :--------------: | :----------------------------------------: |
