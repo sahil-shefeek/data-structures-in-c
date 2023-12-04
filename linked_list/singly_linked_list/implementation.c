@@ -15,7 +15,7 @@ void insertHead(int x)
     temp->data = x;
     temp->link = head;
     head = temp;
-    printf("Inserted %d succesfully!\n", x);
+    printf("Inserted %d successfully!\n", x);
 }
 
 void insertEnd(int x)
@@ -27,7 +27,7 @@ void insertEnd(int x)
     while (ptr->link != NULL)
         ptr = ptr->link;
     ptr->link = temp;
-    printf("Inserted %d succesfully!\n", x);
+    printf("Inserted %d successfully!\n", x);
 }
 
 void insertAt(int x, int n)
@@ -50,7 +50,7 @@ void insertAt(int x, int n)
                        "Inserting at the end instead.\n",
                        n);
                 insertEnd(x);
-                printf("Inserted %d succesfully!\n", x);
+                printf("Inserted %d successfully!\n", x);
                 free(temp);
                 return;
             }
@@ -59,7 +59,7 @@ void insertAt(int x, int n)
         temp->link = ptr->link;
         ptr->link = temp;
     }
-    printf("Inserted %d at postion %d succesfully!\n", x, n);
+    printf("Inserted %d at postion %d successfully!\n", x, n);
 }
 
 void deleteHead()
@@ -105,9 +105,7 @@ void deleteAt(int n)
         printf("Deletion not possible\n");
     else
     {
-        int pos, i = 0;
-        printf("Enter the position to delete:\n");
-        scanf("%d", &pos);
+        int i = 0;
         Node *ptr = head;
         while (i < n - 2)
         {

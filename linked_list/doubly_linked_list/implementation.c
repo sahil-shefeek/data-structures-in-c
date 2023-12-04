@@ -9,15 +9,9 @@ typedef struct Node
 
 Node *head, *tail;
 
-Node *getNewNode()
-{
-	Node *new = (Node *)malloc(sizeof(Node));
-	return new;
-}
-
 void insertHead(int x)
 {
-	Node *new = getNewNode();
+	Node *new = (Node *)malloc(sizeof(Node));
 	new->data = x;
 	new->prev = NULL;
 	if (head != NULL)
@@ -28,15 +22,25 @@ void insertHead(int x)
 		tail = new;
 	}
 	head = new;
-	printf("Inserted %d successfully!", x);
+	printf("Inserted %d successfully!\n", x);
 }
 
 void insertAt(int x, int pos)
 {
-	Node *new = getNewNode();
+	Node *new = (Node *)malloc(sizeof(Node));
 	new->data = x;
 	if (pos == 1)
-		insertHead(x);
+	{
+		new->prev = NULL;
+		if (head != NULL)
+			new->next = head;
+		else
+		{
+			new->next = NULL;
+			tail = new;
+		}
+		head = new;
+	}
 	else
 	{
 		Node *ptr = head;
@@ -54,13 +58,13 @@ void insertAt(int x, int pos)
 		ptr->next = new;
 		if (ptr == tail)
 			tail = new;
-		printf("Inserted %d successfully!", x);
+		printf("Inserted %d successfully!\n", x);
 	}
 }
 
 void insertEnd(int x)
 {
-	Node *new = getNewNode();
+	Node *new = (Node *)malloc(sizeof(Node));
 	new->data = x;
 	new->next = NULL;
 	new->prev = tail;
@@ -69,7 +73,7 @@ void insertEnd(int x)
 	else
 		tail->next = new;
 	tail = new;
-	printf("Inserted %d successfully!", x);
+	printf("Inserted %d successfully!\n", x);
 }
 
 void deleteHead()
@@ -94,22 +98,26 @@ void deleteHead()
 void deleteAt(int pos)
 {
 	if (head == NULL)
-	{
 		printf("Linked list is empty!\n");
-	}
 	else
 	{
+		Node *temp = head;
 		if (pos == 1)
-			deleteHead();
+		{
+			if (head == tail)
+			{
+				tail = NULL;
+				head = NULL;
+			}
+			else
+				head = head->next;
+		}
 		else
 		{
 			if (head == tail)
 			{
-				Node *temp = head;
 				head = NULL;
 				tail = NULL;
-				printf("Deleted %d successfully!\n", temp->data);
-				free(temp);
 			}
 			else
 			{
@@ -117,15 +125,15 @@ void deleteAt(int pos)
 				for (int i = 1; i < pos - 1; i++)
 					ptr = ptr->next;
 				Node *temp = ptr->next;
-				printf("Deleted %d successfully!\n", temp->data);
 				ptr->next = temp->next;
 				if (temp->next == NULL)
 					tail = ptr;
 				else
 					temp->next->prev = temp->prev;
-				free(temp);
 			}
 		}
+		printf("Deleted %d successfully!\n", temp->data);
+		free(temp);
 	}
 }
 
@@ -194,16 +202,16 @@ int main()
 	int choice, x, pos;
 	while (1)
 	{
-		printf("\n  Select operation:\n"
-			   "\t1. Insertion at Beginning\n"
-			   "\t2. Insertion at N\n"
-			   "\t3. Insertion at End\n"
-			   "\t4. Deletion at Beginning\n"
-			   "\t5. Deletion at N\n"
-			   "\t6. Deletion at End\n"
-			   "\t7. Print list\n"
-			   "\t8. Print list in reverse\n"
-			   "\t9. Exit\n");
+		printf("Select operation:\n"
+			   "1. Insertion at Beginning\n"
+			   "2. Insertion at N\n"
+			   "3. Insertion at End\n"
+			   "4. Deletion at Beginning\n"
+			   "5. Deletion at N\n"
+			   "6. Deletion at End\n"
+			   "7. Print list\n"
+			   //"8. Print list in reverse\n"
+			   "9. Exit\n");
 		scanf("%d", &choice);
 		switch (choice)
 		{
