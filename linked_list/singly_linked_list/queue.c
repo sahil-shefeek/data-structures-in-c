@@ -30,12 +30,8 @@ void dequeue()
 		Node *temp = front;
 		printf("Deleted: %d\n", temp->data);
 		if (front->link == NULL)
-		{
-			front = NULL;
 			rear = NULL;
-		}
-		else
-			front = front->link;
+		front = front->link;
 		free(temp);
 	}
 }
@@ -46,14 +42,14 @@ void print()
 		printf("Queue is empty!\n");
 	else
 	{
-		printf("\nQueue elements are:\t");
+		printf("Queue elements are:\n");
 		Node *ptr = front;
-		while (ptr->link != NULL)
+		while (ptr != NULL)
 		{
 			printf("%d\t", ptr->data);
 			ptr = ptr->link;
 		}
-		printf("%d\n", ptr->data);
+		printf("\n");
 	}
 }
 

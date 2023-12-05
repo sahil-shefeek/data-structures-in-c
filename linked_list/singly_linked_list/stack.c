@@ -13,9 +13,7 @@ void push(int item)
 {
     Node *new = (Node *)malloc(sizeof(Node));
     new->data = item;
-    new->link = NULL;
-    if (top != NULL)
-        new->link = top;
+    new->link = top;
     top = new;
     printf("Inserted %d successfully!\n", new->data);
 }
@@ -27,10 +25,7 @@ void pop()
     else
     {
         Node *temp = top;
-        if (top->link == NULL)
-            top = NULL;
-        else
-            top = temp->link;
+        top = top->link;
         printf("Deleted %d successfully!\n", temp->data);
         free(temp);
     }
@@ -42,6 +37,7 @@ void print()
         printf("Stack is empty!\n");
     else
     {
+        printf("Stack elements are:\n");
         Node *ptr = top;
         while (ptr != NULL)
         {
