@@ -58,7 +58,7 @@ int main()
 	int item, choice;
 	while (1)
 	{
-		printf("\n***Menu***\n"
+		printf("Select operation:\n"
 			   "1. Enqueue\n2. Dequeue\n"
 			   "3. Print queue items\n4. Exit\n"
 			   "\nEnter the choice:\n");

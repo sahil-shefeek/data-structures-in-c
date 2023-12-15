@@ -58,9 +58,17 @@ void print_polynomial(Polynomial *poly)
     printf("\n");
 }
 
-void simplfy_terms(Polynomial *poly)
+void bubble_sort(Polynomial *poly)
 {
-    // Todo
+    for (int i = 0; i < poly->num_of_terms - 1; i++)
+    {
+        if (poly->terms[i].exp < poly->terms[i + 1].exp)
+        {
+            Term temp = poly->terms[i];
+            poly->terms[i] = poly->terms[i + 1];
+            poly->terms[i + 1] = temp;
+        }
+    }
 }
 
 Term multiply(Term term1, Term term2)
@@ -74,29 +82,45 @@ Term multiply(Term term1, Term term2)
 int main()
 {
     Polynomial poly_1, poly_2, res;
-    printf("Enter the degree of first polynomial: ");
+    printf("Enter the number of terms of first polynomial: ");
     scanf("%d", &poly_1.num_of_terms);
-    poly_1.num_of_terms++;
     get_polynomial(&poly_1);
     printf("You have entered: \n");
     print_polynomial(&poly_1);
-
-    printf("Enter the degree of second polynomial: ");
+    printf("Enter the number of terms of second polynomial: ");
     scanf("%d", &poly_2.num_of_terms);
-    poly_2.num_of_terms++;
     get_polynomial(&poly_2);
     printf("You have entered: \n");
     print_polynomial(&poly_2);
 
-    int i = 0, k = 0;
+    int i = 0, flag = 0;
+    Term temp;
+    res.num_of_terms = 0;
     while (i < poly_1.num_of_terms)
     {
         int j = 0;
         while (j < poly_2.num_of_terms)
-            res.terms[k++] = multiply(poly_1.terms[i], poly_2.terms[j++]);
+        {
+            temp.exp = poly_1.terms[i].exp + poly_2.terms[j].exp;
+            temp.coeff = poly_1.terms[i].coeff * poly_2.terms[j].coeff;
+
+            for (int k = 0; k < res.num_of_terms; k++)
+            {
+                if (res.terms[k].exp == temp.exp)
+                {
+                    res.terms[k].coeff += temp.coeff;
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag == 0)
+                res.terms[res.num_of_terms++] = temp;
+
+            j++;
+        }
         i++;
     }
-    res.num_of_terms = k++;
 
     printf("The product is :\n");
     print_polynomial(&res);
