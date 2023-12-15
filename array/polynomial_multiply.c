@@ -88,7 +88,7 @@ int main()
     printf("You have entered: \n");
     print_polynomial(&poly_2);
 
-    int i = 0, flag = 0;
+    int i = 0;
     Term temp;
     res.num_of_terms = 0;
 
@@ -99,7 +99,7 @@ int main()
         {
             temp.exp = poly_1.terms[i].exp + poly_2.terms[j].exp;
             temp.coeff = poly_1.terms[i].coeff * poly_2.terms[j].coeff;
-
+            int flag = 0;
             for (int k = 0; k < res.num_of_terms; k++)
             {
                 if (res.terms[k].exp == temp.exp)
