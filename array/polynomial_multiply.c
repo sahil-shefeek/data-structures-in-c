@@ -62,11 +62,14 @@ void bubble_sort(Polynomial *poly)
 {
     for (int i = 0; i < poly->num_of_terms - 1; i++)
     {
-        if (poly->terms[i].exp < poly->terms[i + 1].exp)
+        for (int j = 0; j < poly->num_of_terms - i - 1; j++)
         {
-            Term temp = poly->terms[i];
-            poly->terms[i] = poly->terms[i + 1];
-            poly->terms[i + 1] = temp;
+            if (poly->terms[i].exp < poly->terms[i + 1].exp)
+            {
+                Term temp = poly->terms[i];
+                poly->terms[i] = poly->terms[i + 1];
+                poly->terms[i + 1] = temp;
+            }
         }
     }
 }
