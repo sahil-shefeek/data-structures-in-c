@@ -74,14 +74,6 @@ void bubble_sort(Polynomial *poly)
     }
 }
 
-Term multiply(Term term1, Term term2)
-{
-    Term res;
-    res.coeff = term1.coeff * term2.coeff;
-    res.exp = term1.exp + term2.exp;
-    return res;
-}
-
 int main()
 {
     Polynomial poly_1, poly_2, res;
