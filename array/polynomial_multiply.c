@@ -77,8 +77,6 @@ void bubble_sort(Polynomial *poly)
 int main()
 {
     Polynomial poly_1, poly_2, res;
-    for (int k = 0; k < SIZE; k++)
-        printf("%d\n", res.terms[k].exp);
     printf("Enter the number of terms of first polynomial: ");
     scanf("%d", &poly_1.num_of_terms);
     get_polynomial(&poly_1);
@@ -110,11 +108,11 @@ int main()
                     flag = 1;
                     break;
                 }
-                if (flag == 0)
-                {
-                    res.terms[res.num_of_terms] = temp;
-                    res.num_of_terms++;
-                }
+            }
+            if (flag == 0)
+            {
+                res.terms[res.num_of_terms] = temp;
+                res.num_of_terms++;
             }
             j++;
         }
