@@ -37,7 +37,15 @@ void insert(int value)
         root = new;
     else
     {
-        search(value);
+        Node *ptr = root;
+        while (ptr != NULL)
+        {
+            parent = ptr;
+            if (ptr->data > value)
+                ptr = ptr->left;
+            else
+                ptr = ptr->right;
+        }
         if (parent->data > value)
             parent->left = new;
         else
@@ -55,7 +63,7 @@ Node *getInorderSuccessor(Node *ptr)
 
 void delete(int value)
 {
-    Node *inorderSuccessor, *ptr1;
+    Node *inorderSuccessor, *temp;
     Node *ptr = search(value);
     if (ptr == NULL)
         printf("Element not found deletion not possible \n");
@@ -68,17 +76,18 @@ void delete(int value)
     else
     {
         if (ptr->left == NULL && ptr->right == NULL)
-            ptr1 = NULL;
+            temp = NULL;
         else if (ptr->right == NULL)
-            ptr1 = ptr->left;
+            temp = ptr->left;
         else if (ptr->left == NULL)
-            ptr1 = ptr->right;
+            temp = ptr->right;
+
         if (ptr == root)
-            root = ptr1;
+            root = temp;
         else if (parent->left == ptr)
-            parent->left = ptr1;
+            parent->left = temp;
         else
-            parent->right = ptr1;
+            parent->right = temp;
     }
 }
 
