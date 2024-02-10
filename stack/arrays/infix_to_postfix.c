@@ -1,33 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define SIZE 100
+#include <string.h>
 
+#define BUFFER_SIZE 100
+#define STACK_SIZE 100
+
+char stack[STACK_SIZE];
 int top = -1;
-int top_of_arr = -1;
-
-enum type
-{
-    braces = 1,
-    operator,
-    operand,
-    exponential
-};
-
-enum levels
-{
-    one = 1,
-    two,
-    three
-};
-
-char stack[SIZE];
 
 void push(char obj)
 {
-    if (top >= SIZE - 1)
-    {
+    if (top >= STACK_SIZE - 1) {
         printf("ERR: Stack overflow!\n");
-        exit(-1);
+        exit(1);
     }
     top++;
     stack[top] = obj;
@@ -35,8 +20,7 @@ void push(char obj)
 
 char pop()
 {
-    if (top < 0)
-    {
+    if (top < 0) {
         printf("ERR: Stack underflow!\n");
         exit(-1);
     }
@@ -44,119 +28,55 @@ char pop()
     return stack[top + 1];
 }
 
-void append(char *arr, int size, char element)
+int precedence(char ch)
 {
-    if (top_of_arr < size)
-    {
-        top_of_arr++;
-        arr[top_of_arr] = element;
-        return;
-    }
-    printf("ERR: Array index out of bounds!\n");
-    exit(-1);
-}
-
-int type_of(char symbol)
-{
-    switch (symbol)
-    {
-    case '(':
-    case ')':
-        return braces;
-
+    switch (ch) {
     case '+':
     case '-':
+        return 1;
     case '*':
     case '/':
-    case '%':
-        return operator;
+        return 2;
     case '^':
-        return exponential;
-
-    default:
-        return operand;
+        return 3;
     }
+    return 0;
 }
 
-int precedence(char symbol)
+int main(int argc, char *argv[])
 {
-    switch (symbol)
-    {
-    case '+':
-    case '-':
-        return one;
-
-    case '*':
-    case '/':
-        return two;
-
-    case '^':
-        return three;
-    default:
-        return -1;
-    }
-}
-
-void print_arr(char *arr, int size)
-{
-    for (int i = 0; i < size; i++)
-        printf("%c ", arr[i]);
-    printf("\n");
-}
-
-int main()
-{
-    char infix[100];
-    char postfix[100];
-
-    printf("Enter infix statement :\n");
-    fgets(infix, 99, stdin);
-    int i = 0;
-
-    while (infix[i] != '\0' && infix[i] != '\n')
-    {
-        char symbol = infix[i];
-        switch (type_of(symbol))
-        {
-        case braces:
-            if (symbol == '(')
-            {
-                push(symbol);
-                break;
+    char temp[2], buffer[BUFFER_SIZE], postfix[BUFFER_SIZE];
+    temp[1] = '\0';
+    printf("Enter infix expression:\n");
+    fgets(buffer, BUFFER_SIZE - 1, stdin);
+    char *token = strtok(buffer, " ");
+    while (token != NULL) {
+        if (*token == '+' || *token == '-' || *token == '*' || *token == '/' || *token == '^' ) {
+            while (precedence(stack[top]) >= precedence(*token)) {
+                temp[0] = pop();
+                strncat(postfix, temp, BUFFER_SIZE - strlen(postfix) - 1);
             }
-            else
-            {
-                char del;
-                while ((del = pop()) != '(')
-                    append(postfix, 100, del);
+            push(*token);
+        } else if (*token == '(') {
+            push(*token);
+        } else if (*token == ')') {
+            while (top != -1) {
+                temp[0] = pop();
+                if (*temp == '(')
+                    break;
+                else
+                    strncat(postfix, temp, BUFFER_SIZE - strlen(postfix) - 1);
             }
-            break;
-
-        case operator:
-            while (top > -1 && precedence(stack[top]) >= precedence(symbol))
-                append(postfix, 100, pop());
-            push(symbol);
-            break;
-
-        case exponential:
-            while (precedence(stack[top]) > precedence(symbol))
-                append(postfix, 100, pop());
-            push(symbol);
-            break;
-
-        case operand:
-            append(postfix, 100, symbol);
-            break;
+        } else {
+            strncat(postfix, token, BUFFER_SIZE - strlen(postfix) - 1);
         }
-        i++;
+        token = strtok(NULL, " ");
     }
+    while (top != -1) {
+        temp[0] = pop();
+        strncat(postfix, temp, BUFFER_SIZE - strlen(postfix) - 1);
+    }
+    printf("Postfix expression: %s\n", postfix);
 
-    while (top > -1)
-        append(postfix, 100, pop());
-
-    append(postfix, 100, '\0');
-
-    printf("Postfix representation: ");
-    print_arr(postfix, top_of_arr + 1);
     return 0;
 }
