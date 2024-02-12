@@ -25,18 +25,24 @@ stack *create_stack()
     return new_stack;
 }
 
-stack *delete_stack(stack *src)
+void *delete_stack(stack **src)
 {
-    while(src->head != NULL) {
-        node_t *temp = src->head;
-        src->head = src->head->next;
-        free(temp);
+    if (src != NULL) {
+        while((*src)->head != NULL) {
+            node_t *temp = (*src)->head;
+            (*src)->head = (*src)->head->next;
+            free(temp);
+        }
+        free(*src);
+        src = NULL;
+    } else {
+        printf("ERR: Invalid reference, Aborting...\n"
+                "Failed stack deletion\n");
+        exit(1);
     }
-    free(src);
-    return NULL;
 }
 
-void push(stack **destination, T item)
+void push(stack *destination, T item)
 {
     node_t *new = (node_t *) malloc(sizeof(node_t));
     if(new == NULL) {
@@ -45,16 +51,16 @@ void push(stack **destination, T item)
         exit(1);
     } 
     new->data = item;
-    new->next = (*destination)->head;
-    (*destination)->head = new; 
+    new->next = destination->head;
+    destination->head = new; 
 }
 
-T pop(stack **src)
+T pop(stack *src)
 {
-    if((*src)->head != NULL) {
-        node_t *temp = (*src)->head;
+    if(src->head != NULL) {
+        node_t *temp = src->head;
         T deleted = temp->data;
-        (*src)->head = (*src)->head->next;
+        src->head = src->head->next;
         free(temp);
         return deleted;
     } else {

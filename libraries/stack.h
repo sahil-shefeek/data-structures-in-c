@@ -35,23 +35,22 @@ stack *create_stack();
 /**
  * @brief Deletes a stack and frees memory.
  * @param src Pointer to the stack to be deleted.
- * @return NULL after deleting the stack.
  */
-stack *delete_stack(stack *src);
+void *delete_stack(stack **src);
 
 /**
  * @brief Pushes an element onto the stack.
  * @param destination Pointer to the stack where the element will be pushed.
  * @param item Element to be pushed onto the stack.
  */
-void push(stack **destination, T item);
+void push(stack *destination, T item);
 
 /**
  * @brief Pops the top element from the stack.
  * @param src Pointer to the stack to pop from.
  * @return The popped element.
  */
-T pop(stack **src);
+T pop(stack *src);
 
 /**
  * @brief Returns the top element of the stack without removing it.
